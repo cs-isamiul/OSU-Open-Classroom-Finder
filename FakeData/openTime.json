@@ -1,0 +1,53 @@
+[
+    {
+        "113":
+        {"empty1":{
+            "start":"1:30pm",
+            "end":"3pm"
+        },
+        "Physics 1xxx":{
+            "start":"1pm",
+            "end":"1:30pm"
+        }},
+
+        "221":
+        {"empty1":{
+            "start":"1pm",
+            "end":"4pm"
+        },
+        "Math 30xx":{
+            "start":"4pm",
+            "end":"5pm"
+        }},
+
+        "128":
+        {"empty1":{
+            "start":"1pm",
+            "end":"4pm"
+        },
+        
+        "272":
+        {"History 1xxx":{
+            "start":"12pm",
+            "end":"1pm"
+        },
+            "empty1":{
+            "start":"1pm",
+            "end":"2pm"
+        },
+        "Math 30xx":{
+            "start":"2pm",
+            "end":"3pm"
+        },
+        "empty2":{
+            "start":"3pm",
+            "end":"5pm"
+        }},
+        
+        "room#":
+        {"class/empty1":{
+            "start":"startTime",
+            "end":"endTime"
+        }}
+    }
+]
