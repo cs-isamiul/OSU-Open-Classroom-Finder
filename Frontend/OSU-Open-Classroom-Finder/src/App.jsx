@@ -1,14 +1,23 @@
-import './App.css';
+import Header from "./Header";
+import Footer from "./Footer";
+import Interaction from "./Interaction";
 
-//Picocss
-import "./assets/css/pico.min.css";
+//css
+import "./assets/css/pico.css";
+import "./App.css";
 
 function App() {
 
   return <>
-    Hello world
+    <body>
+      <main className="container">
+        <header><Header/></header>
+        <main><Interaction/></main>
+        <footer><Footer/></footer>
+      </main>
+    </body>
 
   </>
 }
 
-export default App
+export default App;
