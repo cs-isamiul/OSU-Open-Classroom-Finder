@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function Forms() {
     {/* Pretend this imports rooms */ }
     const rooms = Array.from({ length: 14 }, (_, index) => index + 100);
@@ -6,11 +8,35 @@ function Forms() {
 
     const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
+    const [building, setBuilding] = useState('');
+    const [room, setRoom] = useState([]);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(building, room);
+    };
+
+    const handleRoomCheck = (event) => {
+        //Make a copy of room list
+        let copy = [...room];
+        const newRoom = event.target.id;
+
+        //if room isn't in list then add it, else remove it
+        if(copy.indexOf(newRoom) == -1){
+            copy.push(newRoom);
+        } else {
+            copy.splice(copy.indexOf(newRoom), 1);
+        }
+
+        setRoom(copy);
+        console.log(copy);
+    };
+
     return <>
-        <form>
+        <form onSubmit={handleSubmit}>
             {/* Building */}
             <label htmlFor="building">Building</label>
-            <select id="building" required>
+            <select id="building" required onChange={(event) => { setBuilding(event.target.value) }}>
                 <option value disabled selected>Select a building…</option>
                 <option value="BE">Baker Systems Engineering</option>
                 <option value="DL">Dreese Laboratories</option>
@@ -21,10 +47,10 @@ function Forms() {
             <label htmlFor="room">Room Number</label>
             {/* If building selected, then show options */}
             {rooms.length > 0 ?
-                <fieldset id="room" className="gridColumn">
+                <fieldset id="room" className="gridColumn" onChange={(event) => { handleRoomCheck(event) }}>
                     {rooms.map((element) => (
                         <label className="pad1" htmlFor={`room${element}`}>
-                            <input type="checkbox" id={`room${element}`} name="room" />
+                            <input type="checkbox" id={element} name="room" />
                             {element}
                         </label>
                     ))}
@@ -45,10 +71,10 @@ function Forms() {
             {dayNames.map((day) => (
                 <label htmlFor={day}>{day}
                     <div className="grid" id={day}>
-                        <label for={`start${day}`}>Start
+                        <label htmlFor={`start${day}`}>Start
                             <input type="time" id={`start${day}`} name="time" />
                         </label>
-                        <label for={`end${day}`}>End
+                        <label htmlFor={`end${day}`}>End
                             <input type="time" id={`end${day}`} name="time" />
                         </label>
                     </div>
@@ -59,11 +85,11 @@ function Forms() {
             <h3>Options</h3>
             <div className="grid">
                 <label htmlFor="openBefore">Show rooms open x minutes after selected start time</label>
-                <input id="openBefore" type="number" defaultValue={0} min={0} max={59}/>
+                <input id="openBefore" type="number" defaultValue={0} min={0} max={59} />
             </div>
             <div className="grid">
                 <label htmlFor="closeBefore">Show rooms that close x minutes before selected end time</label>
-                <input id="closeBefore" type="number" defaultValue={0} min={0} max={59}/>
+                <input id="closeBefore" type="number" defaultValue={0} min={0} max={59} />
             </div>
 
             {/* <!-- Submit Button --> */}
