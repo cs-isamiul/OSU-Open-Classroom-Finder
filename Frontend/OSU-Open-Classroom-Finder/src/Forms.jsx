@@ -44,16 +44,27 @@ function Forms() {
 
             {dayNames.map((day) => (
                 <label htmlFor={day}>{day}
-                <div className="grid" id={day}>
-                    <label for={`start${day}`}>Start
-                        <input type="time" id={`start${day}`} name="time" />
-                    </label>
-                    <label for={`end${day}`}>End
-                        <input type="time" id={`end${day}`} name="time" />
-                    </label>
-                </div>
+                    <div className="grid" id={day}>
+                        <label for={`start${day}`}>Start
+                            <input type="time" id={`start${day}`} name="time" />
+                        </label>
+                        <label for={`end${day}`}>End
+                            <input type="time" id={`end${day}`} name="time" />
+                        </label>
+                    </div>
                 </label>
             ))}
+
+            {/* Options */}
+            <h3>Options</h3>
+            <div className="grid">
+                <label htmlFor="openBefore">Show rooms open x minutes after selected start time</label>
+                <input id="openBefore" type="number" defaultValue={0} min={0} max={59}/>
+            </div>
+            <div className="grid">
+                <label htmlFor="closeBefore">Show rooms that close x minutes before selected end time</label>
+                <input id="closeBefore" type="number" defaultValue={0} min={0} max={59}/>
+            </div>
 
             {/* <!-- Submit Button --> */}
             <button type="submit">Submit</button>
