@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { handleRoom, handleSubmit } from "./handlers/formHandlers";
 
 function Forms() {
     {/* Pretend this imports rooms */ }
@@ -11,32 +12,14 @@ function Forms() {
     const [building, setBuilding] = useState('');
     const [room, setRoom] = useState([]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(building, room);
-    };
-
-    const handleRoomCheck = (event) => {
-        //Make a copy of room list
-        let copy = [...room];
-        const newRoom = event.target.id;
-
-        //if room isn't in list then add it, else remove it
-        if(copy.indexOf(newRoom) == -1){
-            copy.push(newRoom);
-        } else {
-            copy.splice(copy.indexOf(newRoom), 1);
-        }
-
-        setRoom(copy);
-        console.log(copy);
-    };
+    const states = {building, room};
+    const setStates = {setBuilding, setRoom};
 
     return <>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(event) => {handleSubmit(event, states, setStates)}}>
             {/* Building */}
             <label htmlFor="building">Building</label>
-            <select id="building" required onChange={(event) => { setBuilding(event.target.value) }}>
+            <select id="building" required onChange={(event) => {setBuilding(event.target.value)}}>
                 <option value disabled selected>Select a building…</option>
                 <option value="BE">Baker Systems Engineering</option>
                 <option value="DL">Dreese Laboratories</option>
@@ -47,7 +30,7 @@ function Forms() {
             <label htmlFor="room">Room Number</label>
             {/* If building selected, then show options */}
             {rooms.length > 0 ?
-                <fieldset id="room" className="gridColumn" onChange={(event) => { handleRoomCheck(event) }}>
+                <fieldset id="room" className="gridColumn" onChange={(event) => { handleRoom(event, states, setStates) }}>
                     {rooms.map((element) => (
                         <label className="pad1" htmlFor={`room${element}`}>
                             <input type="checkbox" id={element} name="room" />
