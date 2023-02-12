@@ -19,13 +19,17 @@ const handleRoom = (event, states, setStates) => {
     //console.log(copy);
 };
 
-const handleStartWeek = (event, states, setStates) => {
+const handleStartWeek = (event, setStates) => {
+    //Get date selected, find out day of the week
     let selected = event.target.value;
-    const dayOfWeek = new Date(Date.parse(selected)).getDay();
-    selected = Date.parse(selected)-(dayOfWeek*86400);
+    const dayOfWeek = (new Date(Date.parse(selected)).getDay());
+
+    //Subtract day of week by ms in a day to get sunday
+    selected = Date.parse(selected)-(((dayOfWeek+1)%7)*86400000);
     selected = (new Date(selected).toISOString()).split('T')[0];
 
-    console.log(selected);
+    //Set day
+    setStates.setStartWeek(selected);
 }
 
 export {handleSubmit, handleRoom, handleStartWeek};

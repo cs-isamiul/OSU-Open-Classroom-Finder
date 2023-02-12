@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { handleRoom, handleSubmit, handleStartWeek } from "./handlers/formHandlers";
 
 function Forms() {
@@ -11,16 +11,22 @@ function Forms() {
 
     const [building, setBuilding] = useState('');
     const [room, setRoom] = useState([]);
-    const [startWeek, setStartWeek] = useState((new Date().toISOString()).split('T')[0]);
+    const [startWeek, setStartWeek] = useState();
 
-    const states = {building, room, startWeek};
-    const setStates = {setBuilding, setRoom, setStartWeek};
+    const states = { building, room, startWeek };
+    const setStates = { setBuilding, setRoom, setStartWeek };
+
+    //initialize start week
+    useEffect(() =>{
+        let date = {target:{value:(new Date().toISOString()).split('T')[0]}};
+        handleStartWeek(date, setStates);
+    },[states, setStates]);
 
     return <>
-        <form onSubmit={(event) => {handleSubmit(event, states, setStates)}}>
+        <form onSubmit={(event) => { handleSubmit(event, setStates) }}>
             {/* Building */}
             <label htmlFor="building">Building</label>
-            <select id="building" required onChange={(event) => {setBuilding(event.target.value)}}>
+            <select id="building" required onChange={(event) => { setBuilding(event.target.value) }}>
                 <option value disabled selected>Select a building…</option>
                 <option value="BE">Baker Systems Engineering</option>
                 <option value="DL">Dreese Laboratories</option>
@@ -31,7 +37,7 @@ function Forms() {
             <label htmlFor="room">Room Number</label>
             {/* If building selected, then show options */}
             {rooms.length > 0 ?
-                <fieldset id="room" className="gridColumn" onChange={(event) => {handleRoom(event, states, setStates)}}>
+                <fieldset id="room" className="gridColumn" onChange={(event) => { handleRoom(event, states, setStates) }}>
                     {rooms.map((element) => (
                         <label className="pad1" htmlFor={`room${element}`}>
                             <input type="checkbox" id={element} name="room" />
@@ -44,10 +50,10 @@ function Forms() {
                 : <input type="text" placeholder="Select a building" disabled></input>
             }
 
-            {/* Week of */}
-            <label htmlFor="date" onChange={(event) => {handleStartWeek(event, states, setStates)}}>Start Week
-                <input defaultValue={startWeek} type="date" id="date" name="date" />
-                <small>Sunday is considered the first of the week<br />By default it selects this week</small>
+            {/* Start week */}
+            <label htmlFor="date" onChange={(event) => { handleStartWeek(event, setStates) }}>Start Week
+                <input value={startWeek} type="date" id="date" name="date" />
+                <small>Sunday is considered the first of the week<br />By default it selects the current week</small>
             </label>
 
             {/* Time for each day */}
