@@ -11,16 +11,16 @@ function Forms() {
 
     const [building, setBuilding] = useState('');
     const [room, setRoom] = useState([]);
-    const [startWeek, setStartWeek] = useState();
+    const [startWeek, setStartWeek] = useState((new Date().toISOString()).split('T')[0]);
 
     const states = { building, room, startWeek };
     const setStates = { setBuilding, setRoom, setStartWeek };
 
     //initialize start week
     useEffect(() =>{
-        let date = {target:{value:(new Date().toISOString()).split('T')[0]}};
+        let date = {target:{value:startWeek}};
         handleStartWeek(date, setStates);
-    },[states, setStates]);
+    },[]);
 
     return <>
         <form onSubmit={(event) => { handleSubmit(event, setStates) }}>
