@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { handleRoom, handleSubmit } from "./handlers/formHandlers";
+import { handleRoom, handleSubmit, handleStartWeek } from "./handlers/formHandlers";
 
 function Forms() {
     {/* Pretend this imports rooms */ }
@@ -11,9 +11,10 @@ function Forms() {
 
     const [building, setBuilding] = useState('');
     const [room, setRoom] = useState([]);
+    const [startWeek, setStartWeek] = useState((new Date().toISOString()).split('T')[0]);
 
-    const states = {building, room};
-    const setStates = {setBuilding, setRoom};
+    const states = {building, room, startWeek};
+    const setStates = {setBuilding, setRoom, setStartWeek};
 
     return <>
         <form onSubmit={(event) => {handleSubmit(event, states, setStates)}}>
@@ -30,7 +31,7 @@ function Forms() {
             <label htmlFor="room">Room Number</label>
             {/* If building selected, then show options */}
             {rooms.length > 0 ?
-                <fieldset id="room" className="gridColumn" onChange={(event) => { handleRoom(event, states, setStates) }}>
+                <fieldset id="room" className="gridColumn" onChange={(event) => {handleRoom(event, states, setStates)}}>
                     {rooms.map((element) => (
                         <label className="pad1" htmlFor={`room${element}`}>
                             <input type="checkbox" id={element} name="room" />
@@ -44,8 +45,8 @@ function Forms() {
             }
 
             {/* Week of */}
-            <label htmlFor="date">Start Week
-                <input defaultValue={(new Date().toISOString()).split('T')[0]} type="date" id="date" name="date" />
+            <label htmlFor="date" onChange={(event) => {handleStartWeek(event, states, setStates)}}>Start Week
+                <input defaultValue={startWeek} type="date" id="date" name="date" />
                 <small>Sunday is considered the first of the week<br />By default it selects this week</small>
             </label>
 
