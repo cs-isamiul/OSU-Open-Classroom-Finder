@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { handleRoom, handleSubmit, handleStartWeek } from "./handlers/formHandlers";
+import { handleRoom, handleSubmit, handleStartWeek, handleDayTimes, handleOptions } from "./handlers/formHandlers";
 
 function Forms() {
     {/* Pretend this imports rooms */ }
@@ -12,9 +12,11 @@ function Forms() {
     const [building, setBuilding] = useState('');
     const [room, setRoom] = useState([]);
     const [startWeek, setStartWeek] = useState((new Date().toISOString()).split('T')[0]);
+    const [dayTimes, setDayTimes] = useState({});
+    const[options, setOptions] = useState({});
 
-    const states = { building, room, startWeek };
-    const setStates = { setBuilding, setRoom, setStartWeek };
+    const states = { building, room, startWeek, dayTimes, options };
+    const setStates = { setBuilding, setRoom, setStartWeek, setDayTimes, setOptions };
 
     //initialize start week
     useEffect(() =>{
@@ -23,7 +25,7 @@ function Forms() {
     },[]);
 
     return <>
-        <form onSubmit={(event) => { handleSubmit(event, setStates) }}>
+        <form onSubmit={(event) => { handleSubmit(event, states, setStates) }}>
             {/* Building */}
             <label htmlFor="building">Building</label>
             <select id="building" required onChange={(event) => { setBuilding(event.target.value) }}>
@@ -62,10 +64,12 @@ function Forms() {
                 <label htmlFor={day}>{day}
                     <div className="grid" id={day}>
                         <label htmlFor={`start${day}`}>Start
-                            <input type="time" id={`start${day}`} name="time" />
+                            <input type="time" id={`start${day}`} name="time" 
+                            onChange={(event) => {handleDayTimes(event, states, setStates, `start${day}`)}}/>
                         </label>
                         <label htmlFor={`end${day}`}>End
-                            <input type="time" id={`end${day}`} name="time" />
+                            <input type="time" id={`end${day}`} name="time" 
+                            onChange={(event) => {handleDayTimes(event, states, setStates, `end${day}`)}}/>
                         </label>
                     </div>
                 </label>
@@ -75,11 +79,13 @@ function Forms() {
             <h3>Options</h3>
             <div className="grid">
                 <label htmlFor="openBefore">Show rooms open x minutes after selected start time</label>
-                <input id="openBefore" type="number" defaultValue={0} min={0} max={59} />
+                <input id="openBefore" type="number" defaultValue={0} min={0} max={59} 
+                onChange={(event) => {handleOptions(event, states, setStates, "openBefore")}}/>
             </div>
             <div className="grid">
                 <label htmlFor="closeBefore">Show rooms that close x minutes before selected end time</label>
-                <input id="closeBefore" type="number" defaultValue={0} min={0} max={59} />
+                <input id="closeBefore" type="number" defaultValue={0} min={0} max={59} 
+                onChange={(event) => {handleOptions(event, states, setStates, "closeBefore")}}/>
             </div>
 
             {/* <!-- Submit Button --> */}

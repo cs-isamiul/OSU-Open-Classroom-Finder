@@ -1,6 +1,6 @@
 const handleSubmit = (event, states, setStates) => {
     event.preventDefault();
-    console.log(states.building, states.room);
+    console.log(states);
 };
 
 const handleRoom = (event, states, setStates) => {
@@ -32,4 +32,24 @@ const handleStartWeek = (event, setStates) => {
     setStates.setStartWeek(selected);
 }
 
-export {handleSubmit, handleRoom, handleStartWeek};
+const handleDayTimes = (event, states, setStates, element) => {
+    //Get time elements
+    let h = event.target.value.split(':')[0];
+    const m = event.target.value.split(':')[1];
+    const suffix = h >= 12 ? "PM": "AM";
+    h = (12+h)%12;
+    h = h == 0 ? 12: h;
+    
+    //Set time element
+    let copy = states.dayTimes;
+    copy[element] = `${h}:${m}${suffix}`
+    setStates.setDayTimes = copy;
+}
+
+const handleOptions = (event, states, setStates, element) => {
+    let copy = states.options;
+    copy[element] = event.target.value;
+    setStates.setOptions = copy;
+}
+
+export {handleSubmit, handleRoom, handleStartWeek, handleDayTimes, handleOptions};
