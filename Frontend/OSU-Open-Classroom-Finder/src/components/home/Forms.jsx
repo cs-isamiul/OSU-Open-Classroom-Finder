@@ -1,26 +1,13 @@
 import { useState, useEffect } from "react";
-import { handleRoom, handleSubmit, handleStartWeek, handleDayTimes, handleOptions } from "./handlers/formHandlers";
+import { handleRoom, handleSubmit, handleStartWeek, handleDayTimes, handleOptions } from "../../handlers/formHandlers";
 
-function Forms() {
+function Forms({states, setStates, dayNames}) {
     {/* Pretend this imports rooms */ }
     const rooms = Array.from({ length: 14 }, (_, index) => index + 100);
-    //const rooms = [120, 122, 128, 133, 160, 270, 310, 330, 356, 455, 456, 457];
-    //const rooms = []
-
-    const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-
-    const [building, setBuilding] = useState('');
-    const [room, setRoom] = useState([]);
-    const [startWeek, setStartWeek] = useState((new Date().toISOString()).split('T')[0]);
-    const [dayTimes, setDayTimes] = useState({});
-    const[options, setOptions] = useState({});
-
-    const states = { building, room, startWeek, dayTimes, options };
-    const setStates = { setBuilding, setRoom, setStartWeek, setDayTimes, setOptions };
 
     //initialize start week
     useEffect(() =>{
-        let date = {target:{value:startWeek}};
+        let date = {target:{value:states.startWeek}};
         handleStartWeek(date, setStates);
     },[]);
 
@@ -28,7 +15,7 @@ function Forms() {
         <form onSubmit={(event) => { handleSubmit(event, states, setStates) }}>
             {/* Building */}
             <label htmlFor="building">Building</label>
-            <select id="building" required onChange={(event) => { setBuilding(event.target.value) }}>
+            <select id="building" required onChange={(event) => { setStates.setBuilding(event.target.value) }}>
                 <option value disabled selected>Select a building…</option>
                 <option value="BE">Baker Systems Engineering</option>
                 <option value="DL">Dreese Laboratories</option>
@@ -54,7 +41,7 @@ function Forms() {
 
             {/* Start week */}
             <label htmlFor="date" onChange={(event) => { handleStartWeek(event, setStates) }}>Start Week
-                <input value={startWeek} type="date" id="date" name="date" />
+                <input value={states.startWeek} type="date" id="date" name="date" />
                 <small>Sunday is considered the first of the week<br />By default it selects the current week</small>
             </label>
 
@@ -62,7 +49,7 @@ function Forms() {
 
             {dayNames.map((day) => (
                 <label htmlFor={day}>{day}
-                    <div className="grid" id={day}>
+                    <div className="grid gridColumnNoGap" id={day}>
                         <label htmlFor={`start${day}`}>Start
                             <input type="time" id={`start${day}`} name="time" 
                             onChange={(event) => {handleDayTimes(event, states, setStates, `start${day}`)}}/>

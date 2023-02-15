@@ -9,14 +9,9 @@ import "./App.css";
 function App() {
 
   return <>
-    <body>
-      <main className="container">
-        {/* <header><Header/></header> */}
-        <main><Home/></main>
-        {/* <footer><Footer/></footer> */}
-      </main>
-    </body>
-
+    {/* <header><Header/></header> */}
+      <main className="container"><Home /></main>
+    {/* <footer><Footer/></footer> */}
   </>
 }
 
