@@ -10,7 +10,7 @@ function App() {
 
   return <>
     {/* <header><Header/></header> */}
-      <main className="container"><Home /></main>
+      <main className="container" style={{minWidth:"600px"}}><Home /></main>
     {/* <footer><Footer/></footer> */}
   </>
 }

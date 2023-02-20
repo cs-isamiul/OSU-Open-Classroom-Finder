@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { handleRoom, handleSubmit, handleStartWeek, handleDayTimes, handleOptions } from "../../handlers/formHandlers";
+import { handleRoom, handleSubmit, handleStartWeek, handleDayTimes, handleOptions } from "../../helpers/handlers/formHandlers";
 
 function Forms({states, setStates, dayNames}) {
     {/* Pretend this imports rooms */ }
@@ -49,7 +49,7 @@ function Forms({states, setStates, dayNames}) {
 
             {dayNames.map((day) => (
                 <label htmlFor={day}>{day}
-                    <div className="grid gridColumnNoGap" id={day}>
+                    <div className="grid gridColumnsMinGap" id={day}>
                         <label htmlFor={`start${day}`}>Start
                             <input type="time" id={`start${day}`} name="time" 
                             onChange={(event) => {handleDayTimes(event, states, setStates, `start${day}`)}}/>
@@ -65,12 +65,12 @@ function Forms({states, setStates, dayNames}) {
             {/* Options */}
             <h3>Options</h3>
             <div className="grid">
-                <label htmlFor="openBefore">Show rooms open x minutes after selected start time</label>
+                <label htmlFor="openBefore"><small>Show rooms open x minutes after selected start time</small></label>
                 <input id="openBefore" type="number" defaultValue={0} min={0} max={59} 
                 onChange={(event) => {handleOptions(event, states, setStates, "openBefore")}}/>
             </div>
             <div className="grid">
-                <label htmlFor="closeBefore">Show rooms that close x minutes before selected end time</label>
+                <label htmlFor="closeBefore"><small>Show rooms that close x minutes before selected end time</small></label>
                 <input id="closeBefore" type="number" defaultValue={0} min={0} max={59} 
                 onChange={(event) => {handleOptions(event, states, setStates, "closeBefore")}}/>
             </div>

@@ -1,6 +1,7 @@
 const handleSubmit = (event, states, setStates) => {
     event.preventDefault();
     console.log(states);
+    //do api call
 };
 
 const handleRoom = (event, states, setStates) => {

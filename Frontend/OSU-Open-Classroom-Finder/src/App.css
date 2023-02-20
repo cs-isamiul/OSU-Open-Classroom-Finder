@@ -29,6 +29,6 @@ class named logo
     padding-right: 0.5em;
 }
 
-.gridColumnNoGap {
-  grid-column-gap: 2.5%;
+.gridColumnsMinGap {
+  grid-column-gap: 5%;
 }
