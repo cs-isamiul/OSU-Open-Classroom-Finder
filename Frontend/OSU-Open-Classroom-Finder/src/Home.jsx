@@ -15,7 +15,7 @@ function Home() {
     const setStates = { setBuilding, setRoom, setStartWeek, setDayTimes, setOptions };
 
     return <>
-        <div className="grid gridColumnNoGap">
+        <div className="grid gridColumnsMinGap">
             <Forms states={states} setStates={setStates} dayNames={dayNames}/>
             <Schedule date={'Monday'} states={states} setStates={setStates}/>
         </div>
