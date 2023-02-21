@@ -1,15 +1,19 @@
+import { useEffect } from "react";
 import {pageHeightEm, maxHeightEm, minHeightEm, calculateItemPosition} from "../../helpers/calandarHelpers";
 
 function Schedule({ date }) {//, states, setStates }) {
     //useContext and useCallback to update states.dayTimes
     let states = { dayTimes: {} };
-    states.dayTimes[`start${date}`] = "10:00AM";
-    states.dayTimes[`end${date}`] = "1:00PM";
+    states.dayTimes[`start${date}`] = "12:00PM";
+    states.dayTimes[`end${date}`] = "7:30PM";
     const room = "BE128";
-    const roomStart = "11:00AM";
-    const roomEnd = "12:30PM";
+    const roomStart = "7:00PM";
+    const roomEnd = "3:30PM";
 
-    calculateItemPosition(states.dayTimes[`start${date}`], states.dayTimes[`end${date}`], roomStart);
+    // useEffect(() => {
+    //     calculateItemPosition(states.dayTimes[`start${date}`], states.dayTimes[`end${date}`], roomStart)
+    //     //console.log("testing");
+    // },[]);
     
     return <>
         <div style={{ outlineStyle: "solid", height: `${pageHeightEm}em` }}>
@@ -20,7 +24,7 @@ function Schedule({ date }) {//, states, setStates }) {
             </div>
 
             {/* Some room */}
-            <div style={{position: "absolute", top: `${minHeightEm}em`}}>
+            <div style={{position: "absolute", top: `${calculateItemPosition(states.dayTimes[`start${date}`], states.dayTimes[`end${date}`], roomStart)}em`}}>
                 {room}
             </div>
 
