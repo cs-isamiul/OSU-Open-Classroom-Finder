@@ -1,12 +1,15 @@
 
-const pageHeightEm = 35;
+const pageHeightEm = 32;
 const maxHeightEm = pageHeightEm-3;
 const minHeightEm = 3;
 
 const calculateItemPosition = (startTime, endTime, targetTime) => {
     const totalTime = getTimeDiff(startTime, endTime);
     const targetDiff = getTimeDiff(startTime, targetTime);
-    return (targetDiff/totalTime)+minHeightEm;
+    console.log("start, end, target, totalTime, targetDiff, targetDiff/totalTime, minHeightEm, target/total + min");
+    console.log(startTime, endTime, targetTime, totalTime, targetDiff, (targetDiff/totalTime), minHeightEm, (targetDiff/totalTime)+minHeightEm);
+    let calcVal = (targetDiff/totalTime)*maxHeightEm;
+    return calcVal < minHeightEm ? minHeightEm : calcVal;
 }
 
 //Get diff between time2 and time1, ie time2-time1
@@ -21,7 +24,7 @@ const getTimeDiff = (time1, time2) => {
     let m1 = Number(time1.split(':')[1].slice(0,-2))/60;
     let m2 = Number(time2.split(':')[1].slice(0,-2))/60;
 
-    return (h2+m1)-(h1+m2);
+    return (h2+m2)-(h1+m1);
 }
 
 export {pageHeightEm, maxHeightEm, minHeightEm, calculateItemPosition}; 

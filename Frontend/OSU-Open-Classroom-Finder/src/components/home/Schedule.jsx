@@ -5,9 +5,9 @@ function Schedule({ date }) {//, states, setStates }) {
     //useContext and useCallback to update states.dayTimes
     let states = { dayTimes: {} };
     states.dayTimes[`start${date}`] = "12:00PM";
-    states.dayTimes[`end${date}`] = "7:30PM";
+    states.dayTimes[`end${date}`] = "8:00PM";
     const room = "BE128";
-    const roomStart = "7:00PM";
+    const roomStart = "12:00PM";
     const roomEnd = "3:30PM";
 
     // useEffect(() => {
@@ -16,7 +16,7 @@ function Schedule({ date }) {//, states, setStates }) {
     // },[]);
     
     return <>
-        <div style={{ outlineStyle: "solid", height: `${pageHeightEm}em` }}>
+        <div style={{ outlineStyle: "solid", height: `${pageHeightEm+minHeightEm}em` }}>
             {/* Start time and day of the week */}
             <div>
                 {date} <br />
@@ -29,7 +29,7 @@ function Schedule({ date }) {//, states, setStates }) {
             </div>
 
             {/* End time selected */}
-            <div style={{position: "absolute", top: `${maxHeightEm}em` }}>
+            <div style={{position: "absolute", top: `${pageHeightEm}em` }}>
                 {states.dayTimes[`end${date}`]}
             </div>
         </div>
