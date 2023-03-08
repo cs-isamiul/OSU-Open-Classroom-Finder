@@ -1,9 +1,13 @@
-const axios = require("axios");
+import axios from "axios";
 import * as room from "../../../../FakeData/classroom.json";
 
 function GETBuildingRoom(id) {
-    console.log(room);
-    return response;
+    let rooms = [];
+    for(var i in room[id]){
+        rooms.push(i);
+    }
+
+    return rooms;
 };
 
-module.exports = {GETBuildingRoom};
+export {GETBuildingRoom};

@@ -1,7 +1,15 @@
+import { GETBuildingRoom } from "../axiosCalls";
+
 const handleSubmit = (event, states, setStates) => {
     event.preventDefault();
     console.log(states);
     //do api call
+};
+
+const handleBuilding = (event, states, setStates) => {
+    const selected = event.target.value;
+    setStates.setBuilding(selected);
+    return GETBuildingRoom(selected);
 };
 
 const handleRoom = (event, states, setStates) => {
@@ -53,4 +61,4 @@ const handleOptions = (event, states, setStates, element) => {
     setStates.setOptions = copy;
 }
 
-export {handleSubmit, handleRoom, handleStartWeek, handleDayTimes, handleOptions};
+export {handleSubmit, handleBuilding, handleRoom, handleStartWeek, handleDayTimes, handleOptions};

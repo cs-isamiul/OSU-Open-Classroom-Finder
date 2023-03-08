@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { handleRoom, handleSubmit, handleStartWeek, handleDayTimes, handleOptions } from "../../helpers/handlers/formHandlers";
+import { handleRoom, handleBuilding, handleSubmit, handleStartWeek, handleDayTimes, handleOptions } from "../../helpers/handlers/formHandlers";
 
 function Forms({states, setStates, dayNames}) {
     {/* Pretend this imports rooms */ }
-    const rooms = Array.from({ length: 14 }, (_, index) => index + 100);
+    //let rooms = Array.from({ length: 14 }, (_, index) => index + 100);
+    const [rooms, setRooms] = useState([]);
 
     //initialize start week
     useEffect(() =>{
@@ -15,7 +16,7 @@ function Forms({states, setStates, dayNames}) {
         <form onSubmit={(event) => { handleSubmit(event, states, setStates) }}>
             {/* Building */}
             <label htmlFor="building">Building</label>
-            <select id="building" required onChange={(event) => { setStates.setBuilding(event.target.value) }}>
+            <select id="building" required onChange={(event) => { setRooms(handleBuilding(event, states, setStates)) }}>
                 <option value disabled selected>Select a building…</option>
                 <option value="BE">Baker Systems Engineering</option>
                 <option value="DL">Dreese Laboratories</option>
